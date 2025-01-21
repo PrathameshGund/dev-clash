@@ -78,8 +78,8 @@ function SellForm() {
           />
         </div>
 
-        <InputFile title="image_url" setUrl={setImage_url} url={image_url} />
-        <InputFile title="property Details" setUrl={seturl} url={url} />
+        <InputFile title="Upload Image " setUrl={setImage_url} url={image_url} />
+        <InputFile title="Upload EC/Sell deed /property tax receipt" setUrl={seturl} url={url} />
       </div>
       <Button onClick={handleSubmit}>Submit</Button>
     </div>
