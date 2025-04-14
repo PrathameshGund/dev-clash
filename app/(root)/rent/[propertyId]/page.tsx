@@ -22,17 +22,21 @@ const PropertyPagebyId = ({
     setIsClient(true);
   }, []);
 
-  const property = useQuery(api.documents.getById, {
+  const propertyData = useQuery(api.documents.getById, {
     documentId: propertyId,
   });
 
-  const locationString = property?.location ?? "Chennai, Tamil Nadu";
+  if (!propertyData) {
+    return <div>Loading...</div>;
+  }
+
+  const locationString = propertyData?.location ?? "Chennai, Tamil Nadu";
 
   return (
     <div suppressHydrationWarning className="w-[80%] m-auto">
       <BackLink />
-      <Heading data={property} />
-      <Info data={property} />
+      <Heading data={propertyData} />
+      <Info data={propertyData} />
       <div className="px-6 py-4">
         <PropertyMap location={locationString} />
       </div>
