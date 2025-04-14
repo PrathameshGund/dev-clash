@@ -7,6 +7,7 @@ import SelectInput from './_components/SelectInput';
 import InputFile from './_components/InputFile';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import PricePrediction from '@/components/PricePrediction';
 import { Label } from '@/components/ui/label';
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
@@ -81,7 +82,14 @@ function SellForm() {
         <InputFile title="Upload Image " setUrl={setImage_url} url={image_url} />
         <InputFile title="Upload EC/Sell deed /property tax receipt" setUrl={seturl} url={url} />
       </div>
-      <Button onClick={handleSubmit}>Submit</Button>
+      <Button onClick={handleSubmit} className="mb-8">Submit</Button>
+      
+      <div className="w-full border-slate- mb-5 border rounded-lg">
+        <CategoryHead title="Price Prediction Tool" />
+        <div className="px-8 py-4">
+          <PricePrediction />
+        </div>
+      </div>
     </div>
   );
 }
