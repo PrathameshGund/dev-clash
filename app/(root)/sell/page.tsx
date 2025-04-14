@@ -83,7 +83,13 @@ function SellForm() {
         <InputFile title="Upload EC/Sell deed /property tax receipt" setUrl={seturl} url={url} />
       </div>
       <Button onClick={handleSubmit} className="mb-8">Submit</Button>
-      
+      <button 
+            onClick={handleSubmit}
+            className="bg-indigo-600 text-white px-5 py-2 rounded-md hover:bg-indigo-700 transition-colors mb-8"
+          >
+            Search
+          </button>
+
       <div className="w-full border-slate- mb-5 border rounded-lg">
         <CategoryHead title="Price Prediction Tool" />
         <div className="px-8 py-4">

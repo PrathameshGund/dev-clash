@@ -50,6 +50,20 @@ function RentPage() {
             <option value="price_asc">Price: Low to High</option>
             <option value="price_desc">Price: High to Low</option>
           </select>
+          <button 
+            onClick={() => {
+              // Trigger search with current filters
+              const filtered = allDocuments?.filter((property: any) => {
+                const matchesSearch = property.property_name.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesLocation = !location || property.location.toLowerCase().includes(location.toLowerCase());
+                return matchesSearch && matchesLocation;
+              });
+              setFilteredProperties(filtered || []);
+            }}
+            className="bg-indigo-600 text-white px-5 py-2 rounded-md hover:bg-indigo-700 transition-colors"
+          >
+            Search
+          </button>
         </div>
       </div>
       <Cards properties={sortedProperties || []} />
