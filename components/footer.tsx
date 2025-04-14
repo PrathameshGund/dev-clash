@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-export default function Footer() {
+export const Footer = () => {
   return (
     <footer>
       <hr className="mt-3" />

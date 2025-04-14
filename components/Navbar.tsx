@@ -45,7 +45,7 @@ const items = [
   },
 ];
 
-function Navbar() {
+export const Navbar = () => {
   const { isAuthenticated, isLoading } = useConvexAuth();
 
   return (
@@ -122,5 +122,3 @@ function Navbar() {
     </div>
   );
 }
-
-export default Navbar;
