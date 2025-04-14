@@ -31,8 +31,8 @@ const PropertyPagebyId = ({
   return (
     <div suppressHydrationWarning className="w-[80%] m-auto">
       <BackLink />
-      <Heading data={data} />
-      <Info data={data} />
+      <Heading data={property} />
+      <Info data={property} />
       <div className="px-6 py-4">
         <PropertyMap location={locationString} />
       </div>
