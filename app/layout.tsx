@@ -6,6 +6,7 @@ import './globals.css';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/footer';
 import { Toaster } from '@/components/ui/toaster';
+import { EdgeStoreProvider } from '@/lib/edgestore';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,10 +24,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ConvexClientProvider>
+          <EdgeStoreProvider>
           <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <Toaster />
+            <main>{children}</main>
+            <Footer />
+            <Toaster />
+          </EdgeStoreProvider>
         </ConvexClientProvider>
       </body>
     </html>
