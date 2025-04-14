@@ -40,23 +40,23 @@ function Hero() {
           </Tabs>
         </div>
       </div>
-      <div className="hidden sm:block">
+      <div className="hidden sm:block relative"> {/* Added relative for fill */}
         <Image
-          className="rounded-md m-4 float-right"
+          className="rounded-md m-4 float-right object-cover"
           src="/images/property-1.jpg"
           width={300}
           height={100}
           alt="card"
         />
         <Image
-          className="rounded-md m-4 mr-auto mt-40"
+          className="rounded-md m-4 mr-auto mt-40 object-cover"
           src="/images/property-2.jpg"
           width={220}
           height={70}
           alt="card"
         />
         <Image
-          className="rounded-md m-4 mx-auto"
+          className="rounded-md m-4 mx-auto object-cover"
           src="/images/property-5.jpg"
           width={320}
           height={120}

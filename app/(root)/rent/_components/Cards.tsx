@@ -1,4 +1,3 @@
-
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { BedDouble, Bath, Heart, LandPlot } from 'lucide-react';
@@ -59,10 +58,11 @@ function PropertyCard({
     >
       <div className="relative w-full h-48 overflow-hidden">
         <Image
-          layout="fill"
-          objectFit="cover"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           src={property.image_url}
           alt={property.property_name}
+          className="rounded-lg object-cover"
         />
         {isFirstRow && (
           <div className="absolute top-0 left-0 bg-yellow-500 text-white px-2 py-1 uppercase text-xs font-bold rounded-tr rounded-bl">
