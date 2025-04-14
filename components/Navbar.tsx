@@ -37,11 +37,11 @@ const items = [
   },
   {
     title: 'Buy',
-    href: '/rent',
+    href: '/buy',
   },
   {
-    title: 'Manage Property',
-    href: '/manage-property',
+    title: 'Wishlist',
+    href: '/wishlist',
   },
 ];
 
