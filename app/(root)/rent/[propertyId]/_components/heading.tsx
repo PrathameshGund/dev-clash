@@ -43,27 +43,30 @@ const Heading = (props: prop) => {
       <div className="w-full flex justify-between h-[400px]">
         <div className="w-[59%]">
           <Image
-            className="h-full object-cover rounded-lg "
+            className="rounded-lg"
             width={700}
-            height={700}
+            height={500}
             src={data?.image_url}
-            alt="Image"
+            alt="Property Image"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         </div>
         <div className="w-[39%] flex flex-col justify-between">
           <Image
             width={450}
-            height={450}
-            className="h-[48%] rounded-lg object-cover"
+            height={225}
+            className="rounded-lg"
             src={data?.image_url}
-            alt="Image"
+            alt="Property Image"
+            style={{ width: '100%', height: '48%', objectFit: 'cover' }}
           />
           <Image
             width={450}
-            height={450}
-            className="h-[48%] rounded-lg object-cover"
+            height={225}
+            className="rounded-lg"
             src={data?.image_url}
-            alt="Image"
+            alt="Property Image"
+            style={{ width: '100%', height: '48%', objectFit: 'cover' }}
           />
         </div>
       </div>
