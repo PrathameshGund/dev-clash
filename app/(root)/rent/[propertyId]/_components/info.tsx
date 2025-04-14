@@ -13,8 +13,35 @@ import { DialogDemo } from "./dialogDemo";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
+type PropertyData = {
+  _id: string;
+  property_name: string;
+  location: string;
+  beds: number;
+  bathrooms: number;
+  area_sqm: number;
+  status: string;
+  owner: string;
+  property_details: {
+    listed_on: string;
+    availability: string;
+    type: string;
+    laundry_availability: boolean;
+    cooling: string;
+    heating: string;
+    city: string;
+    year_built: number;
+    lot_size_sqm: number;
+    parking_area: string;
+    deposit: number;
+    processing_fees: number;
+  };
+  about: string;
+  repair_quality: string;
+};
+
 type prop = {
-  data: any;
+  data: PropertyData;
 };
 const Info = (props: prop) => {
   const [isClient, setIsClient] = useState(false);

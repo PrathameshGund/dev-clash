@@ -5,8 +5,15 @@ import { Heart, Share2 } from 'lucide-react';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
+type PropertyData = {
+  _id: string;
+  property_name: string;
+  location: string;
+  image_url: string;
+};
+
 type prop = {
-  data: any;
+  data: PropertyData;
 };
 
 const Heading = (props: prop) => {
