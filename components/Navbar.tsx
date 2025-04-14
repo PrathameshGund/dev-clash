@@ -53,8 +53,8 @@ export const Navbar = () => {
       <div className="flex w-full py-5 px-5 sm:px-10 space-between justify-between fixed bg-slate-50 z-50">
         <Link href="/" className="flex items-center justify-center">
           <Image
-            width={40}
-            height={40}
+            width={180}
+            height={37}
             src="/logo.svg"
             alt="Next.js Logo"
             className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
