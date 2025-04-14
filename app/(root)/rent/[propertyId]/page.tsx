@@ -22,13 +22,11 @@ const PropertyPagebyId = ({
     setIsClient(true);
   }, []);
 
-  const data = useQuery(api.documents.getById, {
+  const property = useQuery(api.documents.getById, {
     documentId: propertyId,
   });
 
-  // Placeholder for property data; needs to be fetched correctly from data
-  const property = data?.data || null;
-  const locationString = property?.location || "Chennai, Tamil Nadu";
+  const locationString = property?.location ?? "Chennai, Tamil Nadu";
 
   return (
     <div suppressHydrationWarning className="w-[80%] m-auto">
