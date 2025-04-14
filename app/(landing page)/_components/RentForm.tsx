@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -16,23 +16,33 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function RentForm() {
-  const [date, setDate] = React.useState<Date | undefined>(new Date());
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [location, setLocation] = useState("");
+  const router = useRouter();
+
+  const handleSearch = () => {
+    const searchParams = new URLSearchParams();
+    if (location) searchParams.set("location", location);
+    if (date) searchParams.set("moveInDate", date.toISOString());
+    router.push(`/rent?${searchParams.toString()}`);
+  };
 
   return (
     <div className="mt-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
-        {/* Location Select */}
-        <Select>
+        <Select value={location} onValueChange={setLocation}>
           <SelectTrigger className="w-full sm:w-[180px]">
             <SelectValue placeholder="Location" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="Mumbai">Mumbai</SelectItem>
-            <SelectItem value="Pune">Pune</SelectItem>
-            <SelectItem value="Delhi">Delhi</SelectItem>
+            <SelectItem value="Chennai">Chennai</SelectItem>
+            <SelectItem value="Padappai">Padappai</SelectItem>
+            <SelectItem value="Tambaram">Tambaram</SelectItem>
+            <SelectItem value="Pallikaranai">Pallikaranai</SelectItem>
+            <SelectItem value="Mahindra World City">Mahindra World City</SelectItem>
           </SelectContent>
         </Select>
 
@@ -53,10 +63,12 @@ function RentForm() {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        {/* Search Button */}
-        <Link href={"/rent"} className="w-full sm:w-auto">
-          <Button className="w-full sm:w-auto bg-indigo-700">Search</Button>
-        </Link>
+        <Button 
+          onClick={handleSearch} 
+          className="w-full sm:w-auto bg-indigo-700 hover:bg-indigo-800"
+        >
+          Search
+        </Button>
       </div>
     </div>
   );
