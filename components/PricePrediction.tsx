@@ -7,51 +7,56 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/Spinner';
 
-// Mock price prediction model
-const predictPrice = (data: any) => {
-  // Base price per square foot
-  const basePricePerSqFt = 5000;
-  
-  // Location multipliers
-  const locationMultipliers: { [key: string]: number } = {
-    'Chennai': 1.2,
-    'Mumbai': 2.0,
-    'Delhi': 1.8,
-    'Bangalore': 1.7,
-    'Pune': 1.4,
-    'Hyderabad': 1.5,
-  };
+const predictPrice = (data: any): number => {
+  try {
+    const area = Number(data.area_sqm);
+    const beds = Number(data.beds);
+    const bathrooms = Number(data.bathrooms);
+    
+    if (isNaN(area) || isNaN(beds) || isNaN(bathrooms)) {
+      return 0;
+    }
 
-  // Property type multipliers
-  const propertyTypeMultipliers: { [key: string]: number } = {
-    'Apartment': 1.0,
-    'Villa': 1.6,
-    'House': 1.4,
-    'Flat': 1.1,
-  };
+    const basePricePerSqFt = 5000;
+    
+    const locationMultipliers: { [key: string]: number } = {
+      'Chennai': 1.2,
+      'Mumbai': 2.0,
+      'Delhi': 1.8,
+      'Bangalore': 1.7,
+      'Pune': 1.4,
+      'Hyderabad': 1.5,
+    };
 
-  let price = data.area_sqm * basePricePerSqFt;
-  
-  // Apply location multiplier
-  const city = data.location.split(',').pop()?.trim();
-  if (city && locationMultipliers[city]) {
-    price *= locationMultipliers[city];
+    const propertyTypeMultipliers: { [key: string]: number } = {
+      'Apartment': 1.0,
+      'Villa': 1.6,
+      'House': 1.4,
+      'Flat': 1.1,
+    };
+
+    let price = area * basePricePerSqFt;
+    
+    const city = data.location?.split(',').pop()?.trim();
+    if (city && locationMultipliers[city]) {
+      price *= locationMultipliers[city];
+    }
+
+    if (propertyTypeMultipliers[data.propertyType]) {
+      price *= propertyTypeMultipliers[data.propertyType];
+    }
+
+    price *= (1 + (beds * 0.1));
+    price *= (1 + (bathrooms * 0.05));
+
+    const variation = 0.9 + Math.random() * 0.2;
+    price *= variation;
+
+    return Math.round(price) || 0;
+  } catch (error) {
+    console.error('Error calculating price:', error);
+    return 0;
   }
-
-  // Apply property type multiplier
-  if (propertyTypeMultipliers[data.propertyType]) {
-    price *= propertyTypeMultipliers[data.propertyType];
-  }
-
-  // Add multipliers for beds and baths
-  price *= (1 + (data.beds * 0.1));
-  price *= (1 + (data.bathrooms * 0.05));
-
-  // Add random variation (±5%)
-  const variation = 0.9 + Math.random() * 0.2;
-  price *= variation;
-
-  return Math.round(price);
 };
 
 export default function PricePrediction() {
@@ -59,19 +64,31 @@ export default function PricePrediction() {
   const [prediction, setPrediction] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     location: '',
-    beds: 2,
-    bathrooms: 2,
-    area_sqm: 1000,
+    beds: '2',
+    bathrooms: '2',
+    area_sqm: '1000',
     propertyType: 'Apartment'
   });
 
   const handlePredict = async () => {
     setLoading(true);
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    const predictedPrice = predictPrice(formData);
-    setPrediction(predictedPrice);
-    setLoading(false);
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      const predictedPrice = predictPrice(formData);
+      setPrediction(predictedPrice);
+    } catch (error) {
+      console.error('Prediction error:', error);
+      setPrediction(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleNumberInput = (field: string, value: string) => {
+    const num = value === '' ? '' : Number(value);
+    if (value === '' || (!isNaN(num) && num >= 0)) {
+      setFormData(prev => ({ ...prev, [field]: value }));
+    }
   };
 
   return (
@@ -92,8 +109,9 @@ export default function PricePrediction() {
           <Label>Bedrooms</Label>
           <Input
             type="number"
+            min="0"
             value={formData.beds}
-            onChange={(e) => setFormData({...formData, beds: parseInt(e.target.value)})}
+            onChange={(e) => handleNumberInput('beds', e.target.value)}
           />
         </div>
 
@@ -101,8 +119,9 @@ export default function PricePrediction() {
           <Label>Bathrooms</Label>
           <Input
             type="number"
+            min="0"
             value={formData.bathrooms}
-            onChange={(e) => setFormData({...formData, bathrooms: parseInt(e.target.value)})}
+            onChange={(e) => handleNumberInput('bathrooms', e.target.value)}
           />
         </div>
 
@@ -110,8 +129,9 @@ export default function PricePrediction() {
           <Label>Area (sq.m)</Label>
           <Input
             type="number"
+            min="0"
             value={formData.area_sqm}
-            onChange={(e) => setFormData({...formData, area_sqm: parseInt(e.target.value)})}
+            onChange={(e) => handleNumberInput('area_sqm', e.target.value)}
           />
         </div>
 
@@ -137,7 +157,7 @@ export default function PricePrediction() {
           {loading ? <Spinner /> : 'Predict Price'}
         </Button>
 
-        {prediction && (
+        {prediction !== null && (
           <div className="mt-4 p-4 bg-green-50 rounded-lg">
             <p className="text-lg font-semibold">
               Based on your input, the estimated property price is ₹{prediction.toLocaleString('en-IN')}
