@@ -49,8 +49,8 @@ function Navbar() {
   const { isAuthenticated, isLoading } = useConvexAuth();
 
   return (
-    <div className="h-[120px]">
-      <div className="flex w-full py-5 px-5 sm:px-10 space-between justify-between fixed bg-slate-50 z-50 ">
+    <div className="h-[120px]" suppressHydrationWarning>
+      <div className="flex w-full py-5 px-5 sm:px-10 space-between justify-between fixed bg-slate-50 z-50">
         <Link href="/" className="flex items-center justify-center">
           <Image
             width={40}
