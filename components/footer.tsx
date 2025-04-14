@@ -13,7 +13,6 @@ export const Footer = () => {
             className="mr-2"
             width={40}
             height={40}
-            width="auto" // Added for aspect ratio
           />
           <span>Estatery</span>
         </div>
