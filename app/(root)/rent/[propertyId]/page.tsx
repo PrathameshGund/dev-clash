@@ -1,15 +1,14 @@
+
 'use client';
 
 import React, { useEffect, useState } from 'react';
 import BackLink from './_components/link';
-import property1 from '@/public/images/property-1.jpg';
 import Heading from './_components/heading';
 import Info from './_components/info';
 import { Id } from '@/convex/_generated/dataModel';
 import { useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
-import PropertyMap from './_components/map';
-
+import Map from './_components/map';
 
 const PropertyPagebyId = ({
   params: { propertyId },
@@ -26,7 +25,6 @@ const PropertyPagebyId = ({
     documentId: propertyId,
   });
 
-  // Placeholder for property data; needs to be fetched correctly from data
   const property = data?.data || null;
   const locationString = property?.location || "Chennai, Tamil Nadu";
 
@@ -36,9 +34,10 @@ const PropertyPagebyId = ({
       <Heading data={data} />
       <Info data={data} />
       <div className="px-6 py-4">
-        <PropertyMap location={locationString} />
+        <Map location={locationString} />
       </div>
     </div>
   );
 };
+
 export default PropertyPagebyId;

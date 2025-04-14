@@ -58,7 +58,7 @@ export const Navbar = () => {
             src="/logo.svg"
             alt="Next.js Logo"
             className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-            style={{width: 'auto', height: 'auto'}}
+            style={{ height: 40 }}
           />
           <span
             className={cn('text-2xl font-semibold px-4', urbanist.className)}
