@@ -27,8 +27,8 @@ const PropertyPagebyId = ({
   });
 
   // Placeholder for property data; needs to be fetched correctly from data
-  const property = data?.data || { location: { lat: 34.0522, lng: -118.2437 } };
-
+  const property = data?.data || null;
+  const locationString = property?.location || "Chennai, Tamil Nadu";
 
   return (
     <div suppressHydrationWarning className="w-[80%] m-auto">
@@ -36,19 +36,9 @@ const PropertyPagebyId = ({
       <Heading data={data} />
       <Info data={data} />
       <div className="px-6 py-4">
-        <PropertyMap location={property.location} />
+        <PropertyMap location={locationString} />
       </div>
     </div>
   );
 };
 export default PropertyPagebyId;
-
-// Placeholder Map Component
-const PropertyMap = ({ location }: { location: { lat: number; lng: number } }) => {
-  return (
-    <div>
-      {/* Replace this with actual map implementation using Leaflet or other library */}
-      <p>Map Placeholder: Latitude: {location.lat}, Longitude: {location.lng}</p>
-    </div>
-  );
-};
