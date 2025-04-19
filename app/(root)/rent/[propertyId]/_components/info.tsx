@@ -12,6 +12,7 @@ import logo from "@/public/logo.svg";
 import { DialogDemo } from "./dialogDemo";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { Id } from "convex/react"; // Import the Id type
 
 type PropertyData = {
   _id: string;
@@ -87,7 +88,7 @@ const Info = (props: prop) => {
   ];
 
   const handleAppoint = () => {
-    const promise = updateDoc({ id: props.data._id }).then(() => alert("done"));
+    const promise = updateDoc({ id: props.data._id as Id<"properties"> }).then(() => alert("done"));
     console.log(promise);
   };
 
