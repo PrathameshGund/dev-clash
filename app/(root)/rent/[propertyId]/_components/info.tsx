@@ -88,7 +88,8 @@ const Info = (props: prop) => {
   ];
 
   const handleAppoint = () => {
-    const promise = updateDoc({ id: props.data._id as Id<"properties"> }).then(() => alert("done"));
+    const id = { __tableName: "properties", id: props.data._id } as Id<"properties">; // Convert string to Id<"properties">
+    const promise = updateDoc({ id }).then(() => alert("done"));
     console.log(promise);
   };
 
